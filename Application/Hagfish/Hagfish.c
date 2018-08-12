@@ -665,6 +665,7 @@ load_config(struct hagfish_loader *loader) {
     char cfg_filename[256];
     UINTN cfg_size;
     status = loader->config_file_name_fn(loader, cfg_filename, 256);
+    AsciiPrint("After config_file_name_fn, cfg_filename = %s\n", cfg_filename);
     if (EFI_ERROR(status)) {
         DebugPrint(DEBUG_ERROR, "config file name failed: %r\n", status);
         return NULL;
@@ -715,6 +716,8 @@ configure_loader(struct hagfish_loader *loader, EFI_HANDLE ImageHandle,
     EFI_SHELL_PARAMETERS_PROTOCOL *shellParameters;
 
     // try to obtain handle to Shell
+    // Not use shell
+#if 0
     if (try_shell) {
         status = SystemTable->BootServices->OpenProtocol(ImageHandle,
                 &gEfiShellParametersProtocolGuid, (VOID **) &shellParameters,
@@ -722,10 +725,12 @@ configure_loader(struct hagfish_loader *loader, EFI_HANDLE ImageHandle,
                 NULL,
                 EFI_OPEN_PROTOCOL_GET_PROTOCOL);
     }
+#endif
     loader->imageHandle = ImageHandle;
     loader->systemTable = SystemTable;
     loader->hagfishImage = hag_image;
 
+#if 0
     if (!try_shell || EFI_ERROR(status) || shellParameters->Argc != 2) {
         // could not connect to shell.
         DebugPrint(DEBUG_INFO, "Could not connect to shell or not enough parameters, assuming PXE boot.\n");
@@ -734,6 +739,10 @@ configure_loader(struct hagfish_loader *loader, EFI_HANDLE ImageHandle,
         DebugPrint(DEBUG_INFO, "Loading configuration %s from file system.\n", shellParameters->Argv[1]);
         status = hagfish_loader_fs_init(loader, shellParameters->Argv[1]);
     }
+#endif
+    DebugPrint(DEBUG_INFO, "Loading configuration %s from file system.\n", "menu.lst");
+    AcsiiPrint(DEBUG_INFO, "Loading configuration %s from file system.\n", "menu.lst");
+    status = hagfish_loader_fs_init(loader, "menu.lst");
     return status;
 }
 
@@ -742,8 +751,9 @@ EFI_STATUS
 UefiMain(IN EFI_HANDLE ImageHandle, IN EFI_SYSTEM_TABLE *SystemTable) {
     EFI_STATUS status;
     EFI_LOADED_IMAGE_PROTOCOL *hag_image;
+    
     int i, try_shell;
-
+#if 0
     status = ShellInitialize();
     if (EFI_ERROR(status)) {
         DebugPrint(DEBUG_ERROR, "Failed to initialize ShellLib, aborting.\n");
@@ -751,6 +761,10 @@ UefiMain(IN EFI_HANDLE ImageHandle, IN EFI_SYSTEM_TABLE *SystemTable) {
     } else {
         try_shell = 1;
     }
+#endif
+    try_shell = 1;
+
+    AsciiPrint("Not used ShellLib and PXE, every parameters is built-in\n");
 
     AsciiPrint("Hagfish UEFI loader starting\n");
 
@@ -763,6 +777,8 @@ UefiMain(IN EFI_HANDLE ImageHandle, IN EFI_SYSTEM_TABLE *SystemTable) {
     DebugPrint(DEBUG_INFO, "Hagfish loaded at %p, size %dB, by handle %p\n",
         hag_image->ImageBase, hag_image->ImageSize, hag_image->DeviceHandle);
 
+    AsciiPrint(DEBUG_INFO, "Hagfish loaded at %p, size %dB, by handle %p\n",
+        hag_image->ImageBase, hag_image->ImageSize, hag_image->DeviceHandle);
 #if WAIT_FOR_GDB
     /*
         This waits with the execution until you set the variable wait

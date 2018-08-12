@@ -65,11 +65,11 @@
     DevicePathLib|MdePkg/Library/UefiDevicePathLib/UefiDevicePathLib.inf
     UefiRuntimeServicesTableLib|MdePkg/Library/UefiRuntimeServicesTableLib/UefiRuntimeServicesTableLib.inf
     ELF|Hagfish/Library/ELF/ELF.inf
-    HiiLib|MdeModulePkg/Library/UefiHiiLib/UefiHiiLib.inf
-    UefiHiiServicesLib|MdeModulePkg/Library/UefiHiiServicesLib/UefiHiiServicesLib.inf
+    # HiiLib|MdeModulePkg/Library/UefiHiiLib/UefiHiiLib.inf
+    # UefiHiiServicesLib|MdeModulePkg/Library/UefiHiiServicesLib/UefiHiiServicesLib.inf
     UefiRuntimeLib|MdePkg/Library/UefiRuntimeLib/UefiRuntimeLib.inf
     UefiDriverEntryPoint|MdePkg/Library/UefiDriverEntryPoint/UefiDriverEntryPoint.inf
-    ShellLib|ShellPkg/Library/UefiShellLib/UefiShellLib.inf
+    # ShellLib|ShellPkg/Library/UefiShellLib/UefiShellLib.inf
 
 [LibraryClasses.AARCH64]
     ArmLib|ArmPkg/Library/ArmLib/AArch64/AArch64Lib.inf

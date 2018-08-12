@@ -33,7 +33,7 @@
     Hagfish/Hagfish.dec
     MdePkg/MdePkg.dec
     MdeModulePkg/MdeModulePkg.dec
-    ShellPkg/ShellPkg.dec
+    # ShellPkg/ShellPkg.dec
 
 [LibraryClasses]
     ArmLib
@@ -53,4 +53,4 @@
     gEfiPxeBaseCodeProtocolGuid
     gEfiLoadFileProtocolGuid
     gEfiLoadFile2ProtocolGuid
-    gEfiShellParametersProtocolGuid
+    # gEfiShellParametersProtocolGuid

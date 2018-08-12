@@ -28,7 +28,7 @@
 #include <Library/UefiApplicationEntryPoint.h>
 #include <Library/UefiBootServicesTableLib.h>
 #include <Library/UefiLib.h>
-#include <Library/ShellLib.h>
+//#include <Library/ShellLib.h>
 
 #include <Protocol/LoadedImage.h>
 
@@ -204,7 +204,7 @@ hagfish_loader_pxe_init(struct hagfish_loader *loader) {
 
 EFI_STATUS fs_size_fn(struct hagfish_loader *loader, char *path, UINT64 *size) {
     EFI_STATUS status;
-    SHELL_FILE_HANDLE file;
+    //SHELL_FILE_HANDLE file;
 
     size_t path_len = strlen(path);
     CHAR16 path_unicode[path_len];
